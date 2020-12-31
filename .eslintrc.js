@@ -37,5 +37,6 @@ module.exports = {
     camelcase: 'off',
     'no-nested-ternary': 'off',
     'no-debugger': 'off',
+    'jsx-a11y/label-has-for': 0,
   },
 };

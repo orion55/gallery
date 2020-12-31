@@ -1,68 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Тестовое задание Firecode 
 
-## Available Scripts
+## Описание:
 
-In the project directory, you can run:
+Компания KeyFrame занимающаяся фотосъемкой поняла, что Инстаграм - не самая эффективная и удобная платформа для ведения своего бизнеса и привлечения людей на фотосессии.
 
-### `yarn start`
+Они обратились к нам с просьбой реализовать MVP версию сайта, чтобы узнать будет ли их сайт интересен пользователям.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Техническое задание:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Приложение должно состоять из:
 
-### `yarn test`
+1. **Двух полей для загрузки изображений и кнопки для отправления запроса**
+    - Первое (текстовое) поле принимает ссылку на изображение.
+    - Второе поле принимает JSON-файл с ссылками на изображения и их описанием (для загрузки JSON-файлов используется диалоговое окно).
+2. **Галереи изображений**
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    Представляет собой упорядоченный набор изображений.
 
-### `yarn build`
+    При наведении на изображение должно:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    - Выводиться её описание (если оно есть).
+    - Появляться кнопка для удаления изображения.
+    
+Нажмите, чтобы посмотреть видео-пример галереи
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/DqqQVeLtQjU/0.jpg)](https://www.youtube.com/watch?v=DqqQVeLtQjU)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Требования к галерее:**
 
-### `yarn eject`
+- Галерея должна быть реализована без использования сторонних библиотек.
+- Начальный список изображений с их описанием берётся из [статического JSON файла](https://drive.google.com/file/d/1AZg21vdC2ACKGgE22jZth_luYfQEn-60/view?usp=sharing), отправленные с помощью поля для загрузки изображения должны сохраняться в localStorage и быть доступными после перезагрузки страницы, реализовывать сервер не нужно.
+- Нажмите на стрелку слева, чтобы отобразить JSON с изображениями
+- Галерея должна быть адаптивной. Минимальная поддерживая ширина - 320px.
+- После нажатия на кнопку загрузки оба поля должны очищаться.
+- Количество изображений в каждом ряду должно варьироваться от 1 до 5 (в зависимости от ширины экрана).
+- Изображения должны сохранять свои пропорции.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Требования к верстке:**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Вся верстка должна быть реализована без использования библиотек компонентов (Material UI, Bootstrap, Chakra UI, Ant Design и так далее).
+- Если для написания стилей не используются CSS-модули, то названия классов должны быть написаны используя соглашение по наименованию BEM.
+- Внешний вид приложения - на твоё усмотрение.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**Ограничения:**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- В качестве стека технологий используй React, Vue или Angular (в зависимости от того, по какому фреймворку проходило собеседование) и желательно TypeScript. **Другие технологии на твой вкус.**
+- Если тебе не привычно работать с localStorage, можешь реализовать простенький сервер.
 
-## Learn More
+**Дополнительные задания:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Добавь функционал открытия лайтбокса изображения по нажатию на превью изображения в галерее.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    Лайтбокс должен содержать:
 
-### Code Splitting
+    - Описание изображения.
+    - Кнопку закрытия лайтбокса.
+2. Добавь возможность загружать изображения не из ссылок, а из файлов (.jpeg/.jpg, .png).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+По итогу выполнения задания мы ждем ссылку на репозиторий в системе контроля версий (например, GitHub), всю дополнительную информацию, которую ты хочешь нам сообщить напиши в README файле репозитория.
 
-### Analyzing the Bundle Size
+Мы рассчитываем, что на выполнение этого задания у тебя уйдет не более 20 часов.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Удачи! 🙂
 
-### Making a Progressive Web App
+## Развёртывание проекта
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Вот краткое введение о том, что должен сделать разработчик, чтобы начать дальнейшую разработку проекта:
+```
+git clone https://github.com/orion55/gallery.git
+cd gallery/
+npm install
+npm start
+```
 
-### Advanced Configuration
+### Компиляция и горячая перезагрузка для разработки
+```
+npm start
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Компиляция и минификация для продакшена
+```
+npm run make-build
+```
+## Ссылки
 
-### Deployment
+- Домашняя страница: https://orion55.github.io/gallery/
+- Repository: https://github.com/orion55/gallery.git
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `yarn build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Licensing
+
+Код в этом проекте распространяется по лицензии MIT.

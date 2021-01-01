@@ -32,6 +32,7 @@
     "eject": "react-scripts eject",
     "make-github": "react-scripts build && rd /S /Q docs && move build docs"
   },
+  "proxy": "http://localhost:3000",
   "eslintConfig": {
     "extends": "react-app"
   },

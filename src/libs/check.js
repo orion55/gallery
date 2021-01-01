@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const MAX_SIZE = 1;
 
 export const checkUrl = (url) => new Promise((resolve, reject) => {
@@ -34,3 +36,16 @@ export const checkJson = (file) => new Promise((resolve, reject) => {
     reject(new Error(fileReader.error));
   };
 });
+
+export const checkLinks = async (links) => {
+  const urls = [];
+  const errors = [];
+
+  const request = (link) => axios.head(link)
+    .then(() => urls.push(link))
+    .catch(() => errors.push(link));
+
+  const promises = links.map(request);
+  await Promise.all(promises);
+  return ({ urls, errors });
+};

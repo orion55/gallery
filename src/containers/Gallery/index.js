@@ -6,8 +6,8 @@ import { MAIN } from '../../constants/routes';
 import LocalStorageDB from '../../services/localstorage';
 import styles from './styles.module.css';
 import { loadImages, selectImages } from '../../slices/imageSlice';
-import { checkLinks } from '../../libs/check';
 import Loader from '../../components/Loader';
+import Card from '../../components/Card';
 
 function Gallery() {
   const history = useHistory();
@@ -24,6 +24,19 @@ function Gallery() {
     dispatch(loadImages(images));
   }, []);
 
+  const handleRemove = (event, id) => {
+    event.preventDefault();
+    console.log(id);
+  };
+
+  const getCards = () => imagesItems.map((item) => (
+    <Card
+      {...item}
+      key={item.id}
+      onRemove={(event) => handleRemove(event, item.id)}
+    />
+  ));
+
   return (
     <>
       <ReduxToastr
@@ -37,8 +50,10 @@ function Gallery() {
         closeOnToastrClick
       />
       {imagesItems && imagesItems.length > 0 ? (
-        <div className={styles.gallery}>
-          <h1>Привет мир!</h1>
+        <div className={styles.gallery__wrapper}>
+          <div className={`${styles.gallery} ${styles.masonry}`}>
+            {getCards()}
+          </div>
         </div>
       ) : <Loader />}
     </>

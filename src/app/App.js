@@ -1,61 +1,56 @@
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useRef } from 'react';
 import ReduxToastr, { toastr } from 'react-redux-toastr';
+import { useHistory } from 'react-router-dom';
 import styles from './styles.module.css';
 import UploadButton from '../components/UploadButton';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
+import LocalStorageDB from '../services/localstorage';
+import { checkUrl, checkSize, checkJson } from '../libs/check';
+import { GALLERY } from '../constants/routes';
 
 function App() {
   const [url, setUrl] = useState('');
   const fileInput = createRef();
+  const history = useHistory();
 
-  const showErrorMessage = (title, message) => {
+  const showErrorMessage = (message) => {
     setTimeout(() => {
-      toastr.error(title, message);
+      toastr.error('Ошибка', message);
     }, 0);
+  };
+
+  const clearFields = () => {
+    setUrl('');
+    fileInput.current = null;
+  };
+
+  const goGallery = () => {
+    clearFields();
+    history.push(GALLERY);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const { length, ...files } = fileInput.current.files;
-    let flagErr = false;
 
     if (!url && length === 0) {
-      showErrorMessage('Ошибка', 'Данные для загрузки не найдены!');
+      showErrorMessage('Данные для загрузки не найдены!');
       return;
     }
 
-    if (url) {
-      const myRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
-      if (!myRegex.test(url)) {
-        showErrorMessage('Ошибка', 'Ссылка не является картинкой!');
-        flagErr = true;
-      }
+    if (length !== 0) {
+      checkSize(files[0])
+        .then(() => checkJson(files[0]))
+        .then((data) => LocalStorageDB.saveImages(data.images))
+        .then(() => goGallery())
+        .catch((err) => showErrorMessage(err.toString()));
     }
 
-    if (length !== 0) {
-      const size = (files[0].size / 1024 / 1024).toFixed(2);
-      if (size > 1) {
-        showErrorMessage('Ошибка', 'Размер файла не должен превышать 1Mb');
-        flagErr = true;
-        return;
-      }
-
-      const fileReader = new FileReader();
-      fileReader.readAsText(files[0], 'UTF-8');
-
-      fileReader.onload = (e) => {
-        try {
-          const value = JSON.parse(e.target.result);
-        } catch (err) {
-          showErrorMessage('Ошибка', err.toString());
-          flagErr = true;
-        }
-      };
-
-      fileReader.onerror = () => {
-        showErrorMessage('Ошибка', fileReader.error);
-        flagErr = true;
-      };
+    if (url) {
+      checkUrl(url)
+        .then(() => LocalStorageDB.addImage(url))
+        .then(() => goGallery())
+        .catch((err) => showErrorMessage(err.toString()));
     }
   };
 

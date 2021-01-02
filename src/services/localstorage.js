@@ -1,3 +1,5 @@
+const uniqid = require('uniqid');
+
 class LocalStorageDB {
   /**
      * Добавляем данные в localStorage
@@ -42,6 +44,7 @@ class LocalStorageDB {
     const data = this.get(key);
     const arr = (data) || [];
     arr.push({
+      id: uniqid(),
       url,
       description: '',
     });
@@ -52,12 +55,31 @@ class LocalStorageDB {
     return this.get('images');
   }
 
-  saveImages(value) {
-    return this.save('images', value);
+  saveImages(values) {
+    if (!values) return null;
+
+    let newValues = values;
+    if (!('id' in values[0])) {
+      newValues = values.map((item) => ({ id: uniqid(), ...item }));
+    }
+    return this.save('images', newValues);
   }
 
   deleteImages() {
     return this.delete('images');
+  }
+
+  removeImage(num) {
+    const key = 'images';
+    const data = this.get(key);
+    if (data) {
+      const newData = data.filter(({ id }) => id !== num);
+      if (newData.length !== 0) {
+        this.save(key, newData);
+      } else {
+        this.deleteImages();
+      }
+    }
   }
 }
 

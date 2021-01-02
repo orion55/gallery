@@ -11,19 +11,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.21.1",
     "classnames": "^2.2.6",
-    "lodash": "^4.17.20",
     "normalize.css": "^8.0.1",
-    "purecss": "^2.0.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-modal": "^3.12.1",
     "react-redux": "^7.1.3",
     "react-redux-toastr": "^7.6.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "reselect": "^4.0.0"
+    "uniqid": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,7 +28,6 @@
     "eject": "react-scripts eject",
     "make-github": "react-scripts build && rd /S /Q docs && move build docs"
   },
-  "proxy": "http://localhost:3000",
   "eslintConfig": {
     "extends": "react-app"
   },

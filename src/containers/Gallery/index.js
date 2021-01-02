@@ -5,9 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MAIN } from '../../constants/routes';
 import LocalStorageDB from '../../services/localstorage';
 import styles from './styles.module.css';
-import { loadImages, selectImages } from '../../slices/imageSlice';
+import {
+  load, selectImages, remove, clear,
+} from '../../slices/imageSlice';
 import Loader from '../../components/Loader';
 import Card from '../../components/Card';
+import Menu from '../../components/Menu';
 
 function Gallery() {
   const history = useHistory();
@@ -21,12 +24,14 @@ function Gallery() {
   useEffect(() => {
     const images = LocalStorageDB.getImages();
     if (!images) goMain();
-    dispatch(loadImages(images));
+    dispatch(clear());
+    dispatch(load(images));
   }, []);
 
   const handleRemove = (event, id) => {
     event.preventDefault();
-    console.log(id);
+    dispatch(remove(id));
+    LocalStorageDB.removeImage(id);
   };
 
   const getCards = () => imagesItems.map((item) => (
@@ -50,11 +55,14 @@ function Gallery() {
         closeOnToastrClick
       />
       {imagesItems && imagesItems.length > 0 ? (
-        <div className={styles.gallery__wrapper}>
-          <div className={`${styles.gallery} ${styles.masonry}`}>
-            {getCards()}
+        <>
+          <Menu />
+          <div className={styles.gallery__wrapper}>
+            <div className={`${styles.gallery} ${styles.masonry}`}>
+              {getCards()}
+            </div>
           </div>
-        </div>
+        </>
       ) : <Loader />}
     </>
   );

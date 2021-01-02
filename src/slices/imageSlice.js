@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import uniqueId from 'lodash/uniqueId';
+
+const uniqid = require('uniqid');
 
 export const imagesSlice = createSlice({
   name: 'images',
@@ -19,7 +20,7 @@ export const {
 export const selectImages = (state) => state.images;
 
 export const loadImages = (images) => (dispatch) => {
-  dispatch(load(images.map((item) => ({ id: uniqueId(), ...item }))));
+  dispatch(load(images.map((item) => ({ id: uniqid(), ...item }))));
 };
 
 export default imagesSlice.reducer;
